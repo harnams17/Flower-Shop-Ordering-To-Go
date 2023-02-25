@@ -1,0 +1,88 @@
+class Flower:
+    def __init__(self, name, color, price, quantity):
+        self.name = name
+        self.color = color
+        self.price = price
+        self.quantity = quantity
+
+class Bouquet:
+    def __init__(self, flowers):
+        self.flowers = flowers
+        self.price = sum([flower.price for flower in flowers])
+        
+    def add_flower(self, flower):
+        self.flowers.append(flower)
+        self.price += flower.price
+        
+    def remove_flower(self, flower):
+        self.flowers.remove(flower)
+        self.price -= flower.price
+        
+class FlowerShop:
+    def __init__(self):
+        self.flowers = []
+        self.bouquets = []
+        
+    def add_flower(self, flower):
+        for f in self.flowers:
+            if f.name == flower.name and f.color == flower.color:
+                f.quantity += flower.quantity
+                return
+        self.flowers.append(flower)
+        
+    def remove_flower(self, flower):
+        for f in self.flowers:
+            if f.name == flower.name and f.color == flower.color:
+                f.quantity -= flower.quantity
+                if f.quantity <= 0:
+                    self.flowers.remove(f)
+                return
+        
+    def add_bouquet(self, bouquet):
+        self.bouquets.append(bouquet)
+        
+    def remove_bouquet(self, bouquet):
+        self.bouquets.remove(bouquet)
+        
+    def get_inventory(self):
+        for flower in self.flowers:
+            print(flower.name, flower.color, flower.quantity)
+        
+    def order_more_flowers(self):
+        for flower in self.flowers:
+            if flower.quantity <= 10:
+                print(f"Order more {flower.color} {flower.name} flowers.")
+                
+------------------------------------------------------------------------------------------
+
+This code defines three classes: Flower, Bouquet, and FlowerShop.
+
+The Flower class represents a flower object and has attributes for its name, color, price, and quantity.
+
+The Bouquet class represents a bouquet object and has a list of Flower objects, and a price. It also has methods for adding and removing flowers from the bouquet.
+
+The FlowerShop class represents the flower shop and has a list of Flower objects and a list of Bouquet objects. It also has methods for adding and removing flowers and bouquets, getting the current inventory, and ordering more flowers if the quantity of a particular flower falls below a certain threshold.
+--------------------------------------------------------------------------------
+Here's an example usage of the FlowerShop class:
+----------------------------------------------------------------------------------------
+
+# Create a new FlowerShop
+flower_shop = FlowerShop()
+
+# Add some flowers to the shop's inventory
+flower_shop.add_flower(Flower('Roses', 'Red', 2.0, 10))
+flower_shop.add_flower(Flower('Roses', 'White', 2.0, 15))
+flower_shop.add_flower(Flower('Lilies', 'Yellow', 1.5, 20))
+
+# Create a new bouquet and add some flowers to it
+bouquet = Bouquet([Flower('Roses', 'Red', 2.0, 5), Flower('Lilies', 'Yellow', 1.5, 10)])
+flower_shop.add_bouquet(bouquet)
+
+# Print the current inventory
+flower_shop.get_inventory()
+
+# Order more flowers if necessary
+flower_shop.order_more_flowers()
+----------------------------------------------------------------------------------------------------------------------
+
+
